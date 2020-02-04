@@ -1,0 +1,33 @@
+version: '2'
+services:
+    mindgeek-web:
+        build:
+            context: ./
+            dockerfile: docker/web.docker
+        volumes:
+            - ./:/var/www
+        ports:
+            - "8099:80"
+        links:
+            - mindgeek-app
+        networks:
+          - mindgeek
+    mindgeek-app:
+        build:
+            context: ./
+            dockerfile: docker/app.docker
+        volumes:
+            - ./:/var/www
+        ports:
+            - "9000"
+        networks:
+            - mindgeek
+    composer:
+        image: "composer"
+        container_name: composer_install
+        volumes:
+            - "./:/var/www"
+        command: install
+        working_dir: "/var/www"
+networks:
+   mindgeek:

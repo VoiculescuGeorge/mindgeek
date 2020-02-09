@@ -13,6 +13,8 @@ services:
         networks:
           - mindgeek
     mindgeek-app:
+        depends_on:
+          - mysql
         build:
             context: ./
             dockerfile: docker/app.docker
@@ -22,6 +24,27 @@ services:
             - "9000"
         networks:
             - mindgeek
+    mysql:
+        image: mysql:5.7
+        container_name: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: mydb
+            MYSQL_USER: laravel
+            MYSQL_PASSWORD: laravel
+        ports:
+            - 3306:3306
+        command: --disable-partition-engine-check
+        volumes:
+          - ./mysql-data:/var/www
+        networks:
+          - mindgeek
+    redis:
+      image: 'bitnami/redis:latest'
+      environment:
+        - ALLOW_EMPTY_PASSWORD=yes
+      networks:
+        - mindgeek
     composer:
         image: "composer"
         container_name: composer_install

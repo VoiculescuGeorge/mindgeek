@@ -4,9 +4,7 @@ You will need to write a program that downloads all the items in https://mgtecht
 
 How you display the feed and how many layers/pages you use is up to you, but please ensure that we can see the complete list and the details of every item. You will likely hitsome road blocks and errors along the way, please use your own initiative to deal with these issues, it’s part of the test.
 
-Please ensure all code is tested before sending it back, it would be good to also see unit tests too. Ideally, alongside supplying the code base and all packages/libraries required to deploy, you will also have to supply deployment instructions too. sending it back, it would be good to also see unit tests too. Ideally, alongside supplying the code base and all packages/libraries required to deploy, you will also have to supply deployment instructions too.'
- 
-The test is not limited in the sense that you do not have a timer or anything once you open the link. Also, the link itself does not expire once you sent it.
+Please ensure all code is tested before sending it back, it would be good to also see unit tests too. Ideally, alongside supplying the code base and all packages/libraries required to deploy, you will also have to supply deployment instructions too.
 
 ## The Task
 - Using Laravel 6.14.0

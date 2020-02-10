@@ -21,6 +21,7 @@ The test is not limited in the sense that you do not have a timer or anything on
 
 ## Run the project
 ### Setup
+- Install docker.
 - Copy env.example and save it as .env
 - `docker-compose up -d`
 -  wait for all containers to create and composer install to finish

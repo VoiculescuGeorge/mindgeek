@@ -9,7 +9,9 @@ The test is not limited in the sense that you do not have a timer or anything on
 
 ## The Task
 - Using Laravel 6.14.0
-- Using Guzzle
+- Using Redis
+- Using mysql:5.7
+- Using php:7.2-fpm
 - 2 Unit tests.
 - Caching is done only for images that have a header with content type image/"extension", the ones that are giving errors are left on the source URL
 - 5 commands: see setup below
@@ -21,10 +23,12 @@ The test is not limited in the sense that you do not have a timer or anything on
 ### Setup
 - Copy env.example and save it as .env
 - `docker-compose up -d`
-- `docker-compose exec php artisan key:generate`
-- `docker-compose exec php artisan migrate --seed`
+-  wait for all containers to create and composer install to finish
+- `docker-compose exec mindgeek_mindgeek-app_1 php artisan key:generate`
+- `docker-compose exec mindgeek_mindgeek-app_1 php artisan migrate --seed`
+- `docker-compose exec mindgeek_mindgeek-app_1 php artisan scan:url https://mgtechtest.blob.core.windows.net/files/showcase.json` (Json is scanned and added to database and images are added to cache. May take a while. Meanwhile you can access  http://localhost:8099 too see how many movies already in db.)
 -  access using any browser http://localhost:8099
-- `docker-compose exec php artisan scan:url https://mgtechtest.blob.core.windows.net/files/showcase.json`
+
 
 ## Tests
-- `docker-compose exec php vendor/bin/phpunit`
+- `docker-compose exec mindgeek_mindgeek-app_1 php vendor/bin/phpunit` (execute php unit tests)

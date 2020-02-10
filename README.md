@@ -12,7 +12,7 @@ The test is not limited in the sense that you do not have a timer or anything on
 - Using Redis
 - Using mysql:5.7
 - Using php:7.2-fpm
-- 2 Unit tests.
+- 1 Unit test.
 - Caching is done only for images that have a header with content type image/"extension", the ones that are giving errors are left on the source URL
 - 5 commands: see setup below
 - The project can be improved, decoupled more as it goes on but as a first draft it respects SOLID and CLEAN principles.

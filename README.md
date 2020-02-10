@@ -24,11 +24,11 @@ The test is not limited in the sense that you do not have a timer or anything on
 - Copy env.example and save it as .env
 - `docker-compose up -d`
 -  wait for all containers to create and composer install to finish
-- `docker-compose exec mindgeek_mindgeek-app_1 php artisan key:generate`
-- `docker-compose exec mindgeek_mindgeek-app_1 php artisan migrate --seed`
-- `docker-compose exec mindgeek_mindgeek-app_1 php artisan scan:url https://mgtechtest.blob.core.windows.net/files/showcase.json` (Json is scanned and added to database and images are added to cache. May take a while. Meanwhile you can access  http://localhost:8099 too see how many movies already in db.)
+- `docker exec mindgeek_mindgeek-app_1 php artisan key:generate`
+- `docker exec mindgeek_mindgeek-app_1 php artisan migrate --seed`
+- `docker exec mindgeek_mindgeek-app_1 php artisan scan:url https://mgtechtest.blob.core.windows.net/files/showcase.json` (Json is scanned and added to database and images are added to cache. May take a while. Meanwhile you can access  http://localhost:8099 too see how many movies already in db.)
 -  access using any browser http://localhost:8099
 
 
 ## Tests
-- `docker-compose exec mindgeek_mindgeek-app_1 php vendor/bin/phpunit` (execute php unit tests)
+- `docker exec mindgeek_mindgeek-app_1 php vendor/bin/phpunit` (execute php unit tests)

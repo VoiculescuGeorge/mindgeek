@@ -19,8 +19,9 @@ class ScannerService
     public function saveJson()
     {
         //Start to insert json data into db
-        $insertService = new InsertService($this->json);
-        return $insertService->insertJson();
+        $insertService = resolve(InsertService::class);
+        //$insertService = $this->app->makeWith(InsertService::class, [ $this->json ]);
+        return $insertService->insertJson($this->json);
     }
 
     public function getJsonSize(){

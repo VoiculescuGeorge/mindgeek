@@ -13,6 +13,18 @@ class MovieRepository
     {
         $this->model = new Movie();
     }
+    
+    public function setInstance(){
+        return $this->model = new Movie();
+    }
+
+    public function getInstance(){
+        return $this->model;
+    }
+
+    public function checkIfMovieExists($id){
+        return $this->model->where('id', '=', $id)->exists();
+    }
 
     public function getMovies(){
         return $this->model->with([

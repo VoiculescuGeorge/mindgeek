@@ -55,4 +55,11 @@ class Movie extends Model
         return $this->hasOne('App\ViewingWindow', 'movie_id');
     }
 
+    public function getRelationshipData($relationship, $field)
+    {   
+        if($this->$relationship){
+            return $this->$relationship->pluck($field)->toArray();
+        }
+    }
+
 }

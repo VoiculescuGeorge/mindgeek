@@ -50,7 +50,7 @@
 									<div class="w3ls-news-result">
                                         <h4>Search Results : <span>{{ count($movies) }}</span></h4>
                                     </div>
-									<table class="fold-table">
+									<table class="fold">
 										<thead>
 										  <tr>
 											<th>No.</th>
@@ -62,8 +62,7 @@
 										  </tr>
 										</thead>
 										<tbody>
-
-                                            @foreach ($movies as  $key=>$movie)
+											@foreach ($movies as  $key=>$movie)
                                                 <tr class="view">
                                                     <td>{{ $key + 1 }}</td>
                                                     <td class="w3-list-img">
@@ -79,47 +78,159 @@
                                                 <tr class="fold">
                                                     <td colspan="7">
                                                       <div class="fold-content">
-                                                        <h3>Company Name</h3>
-                                                        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-                                                        <table>
-                                                          <thead>
-                                                            <tr>
-                                                              <th>Company name</th><th>Customer no</th><th>Customer name</th><th>Insurance no</th><th>Strategy</th><th>Start</th><th>Current</th><th>Diff</th>
-                                                            </tr>
-                                                          </thead>
-                                                          <tbody>
-                                                            <tr>
-                                                              <td>Sony</td>
-                                                              <td>13245</td>
-                                                              <td>John Doe</td>
-                                                              <td>064578</td>
-                                                              <td>A, 100%</td>
-                                                              <td class="cur">20000</td>
-                                                              <td class="cur">33000</td>
-                                                              <td class="cur">13000</td>
-                                                            </tr>
-                                                            <tr>
-                                                              <td>Sony</td>
-                                                              <td>13288</td>
-                                                              <td>Claire Bennet</td>
-                                                              <td>064877</td>
-                                                              <td>B, 100%</td>
-                                                              <td class="cur">28000</td>
-                                                              <td class="cur">48000</td>
-                                                              <td class="cur">20000</td>
-                                                            </tr>
-                                                            <tr>
-                                                              <td>Sony</td>
-                                                              <td>12341</td>
-                                                              <td>Barry White</td>
-                                                              <td>064123</td>
-                                                              <td>A, 100%</td>
-                                                              <td class="cur">10000</td>
-                                                              <td class="cur">22000</td>
-                                                              <td class="cur">12000</td>
-                                                            </tr>
-                                                          </tbody>
-                                                        </table>
+														<h3>Movie info</h4>
+														<hr>
+														<div class="col-md-12">
+															<h4>Body</h4>
+															<p> {{ $movie->body }}</p>
+															<hr>
+														</div>	
+														<div class="col-md-6">
+															<h4>Synopsis</h4>
+															<p> {{ $movie->synopsis }}</p>
+														</div>
+														
+														<div class="col-md-6">
+															<h4>Quote</h4>
+															<p>{{ $movie->quote }}</p>
+														</div>		
+														@isset($movie->viewingWindow)
+															<div class="col-md-12 text-left">
+																<hr>
+																<h4>Viewing Window</h4>
+																<h5>Start Date: {{ $movie->viewingWindow->startDate }}</h5>
+																<h5>End Date: {{ $movie->viewingWindow->endDate }}</h5>
+																<h5>Way to Watch: {{ $movie->viewingWindow->wayToWatch }}</h5>
+																<h5>Title: {{ $movie->viewingWindow->title }}</h5>
+															</div>
+														@endisset
+
+														@isset($movie->keyImages)
+															<div class="col-md-12 text-left">
+																<hr>
+																<h4 style="margin-bottom: 25px;">Key Art Images</h4>
+																@foreach ($movie->keyImages as $keyImage)
+																	@isset($keyImage->image)
+																		<div class="col-md-4" style="margin-bottom: 10px;">
+																			<div class="thumbnail">
+																				<img  src="data:image/png;base64,{{  Cache::get($keyImage->image)   }}" />
+																			</div>
+																		</div>
+																	@endisset
+																@endforeach	
+															</div>
+														@endisset
+
+														@isset($movie->cardimages)
+															<div class="col-md-12 text-left">
+																<hr>
+																<h4 style="margin-bottom: 25px;">Card Images</h4>
+																@foreach ($movie->cardimages as $cardImage)
+																	@isset($cardImage->image)
+																		<div class="col-md-4" style="margin-bottom: 10px;">
+																			<div class="thumbnail">
+																				<img  src="data:image/png;base64,{{  Cache::get($cardImage->image)   }}" />
+																			</div>
+																		</div>
+																	@endisset
+																@endforeach	
+															</div>
+														@endisset
+														@isset($movie->galleries)
+															<div class="col-md-12 text-left">
+																<hr>
+																<h4 style="margin-bottom: 25px;">Galleries</h4>
+																@foreach ($movie->galleries as $gallery)
+																	<h5>Title: {{ $gallery->title }}</h5>
+																	@isset($gallery->thumbnailUrl)
+																		<h5>thumbnailUrl: {{ $gallery->thumbnailUrl }}</h5>
+																	@endisset
+																	@isset($gallery->image)
+																		<div class="col-md-4" style="margin-bottom: 10px;">
+																			<div class="thumbnail">
+																				<img  src="data:image/png;base64,{{  Cache::get($cardImage->image)   }}" />
+																			</div>
+																		</div>
+																	@endisset
+																@endforeach	
+															</div>
+														@endisset
+
+														@isset($movie->videos)
+															<div class="col-md-12 text-left">
+																<hr>
+																<h4 style="margin-bottom: 25px;">Videos</h4>
+																@foreach ($movie->videos as $video)
+																	<div class="col-md-6" style="margin-bottom: 10px;">
+																		<h5>Title: {{ $video->title }}</h5>
+																		<h5>type: {{ $video->type }}</h5>
+																		<h5>Url: <a href="{{ $video->url }}">Click here</a></h5>
+																		@isset($video->thumbnailUrl)
+																			<h5>thumbnailUrl: {{ $video->thumbnailUrl }}</h5>
+																		@endisset
+																		@isset($video->image)
+																			<div class="thumbnail">
+																				<img  src="data:image/png;base64,{{  Cache::get($video->image)   }}" />
+																			</div>
+																		@endisset
+																		@isset($video->alternatives)
+																			@foreach (unserialize($video->alternatives) as$alternative)
+																				<h5>Alternatives {{ $alternative->quality }} quality: <a href="{{ $alternative->url }}">Click here </a></h5>
+																			@endforeach
+																		@endisset
+																	</div>
+																@endforeach	
+															</div>
+														@endisset
+														
+														<div class="col-md-12">
+															<hr>
+															@isset($movie->headline)
+																<div class="col-md-2 text-right">Headline</div>
+																<div class="col-md-10">{{ $movie->headline }} </div>
+															@endisset
+															@isset($movie->cert)
+																<div class="col-md-2 text-right">Cert</div>
+																<div class="col-md-10">{{ $movie->cert }} </div>
+															@endisset
+															@isset($movie->duration)
+																<div class="col-md-2 text-right">Duration</div>
+																<div class="col-md-10">{{  $movie->duration }} seconds</div>
+															@endisset	
+															@isset($movie->directors)
+																<div class="col-md-2 text-right">Directors</div>
+																<div class="col-md-10">{{ implode(", ", $movie->getRelationshipData('directors', 'name')) }}</div>
+															@endisset
+															@isset($movie->cast)
+																<div class="col-md-2 text-right">Cast</div>
+																<div class="col-md-10">{{ implode(", ", $movie->getRelationshipData('cast', 'name')) }}</div>
+															@endisset
+															
+															@isset($movie->class)
+																<div class="col-md-2 text-right">Class</div>
+																<div class="col-md-10">{{ $movie->class }} </div>
+															@endisset
+															@isset($movie->reviewAuthor)
+																<div class="col-md-2 text-right">ReviewAuthor</div>
+																<div class="col-md-10">{{ $movie->reviewAuthor }} </div>
+															@endisset
+															@isset($movie->year)	
+																<div class="col-md-2 text-right">Year</div>
+																<div class="col-md-10">{{ $movie->year }} </div>
+															@endisset
+															@isset($movie->genres)	
+																<div class="col-md-2 text-right">Genres</div>
+																<div class="col-md-10">{{ implode(" ", $movie->genres) }} </div>
+															@endisset
+															@isset($movie->url)	
+																<div class="col-md-2 text-right">Url</div>
+																<div class="col-md-10"><a target="target="_blank href="{{ $movie->url }}">{{$movie->url}}</a> </div>
+															@endisset
+															@isset($movie->skyGoUrl)	
+																<div class="col-md-2 text-right">skyGoUrl</div>
+															<div class="col-md-10"><a target="target="_blank href="{{ $movie->skyGoUrl }}">Go to url</a> </div>
+															@endisset
+														</div>
                                                       </div>
                                                     </td>
                                                   </tr>

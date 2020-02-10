@@ -14,5 +14,9 @@ class Videos extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
+    protected $cast = [
+        'alternative' => 'array'
+    ];
+
 
 }

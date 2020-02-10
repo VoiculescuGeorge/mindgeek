@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Services\CacheService;
-use App\Movie;
+use App\Repositories\MovieRepository;
 
 
 class InsertService
@@ -11,24 +11,27 @@ class InsertService
     protected $model;
     protected $json;
     protected $movie_id;
+    protected $movieRepository;
 
     private $imageTypes = [ 'image/png' , 'image/jpg' , 'image/jpeg', 'image/jpe', 'image/gif', 'image/tif', 'image/tiff', 'image/svg', 'image/ico', 'image/icon', 'image/x-icon'];
 
-    public function __construct($json)
+    public function __construct(MovieRepository $movieRepository)
     {
-        $this->json = $json;
+        $this->movieRepository = $movieRepository;
     }
-
-    public function insertJson()
-    {
+    
+    public function insertJson($json)
+    {   
         $counter = 0;
-        foreach($this->json as $row){
-            $movie =  new Movie;
-            if(!$movie->where('id', '=', $row->id)->exists()){
+        foreach($json as $row){
+            $movie = $this->movieRepository->setInstance();
+            if(!$this->movieRepository->checkIfMovieExists($row->id)){
                 $counter++;
                 foreach($row as $field=>$value){
-                    if(is_array($value) || is_object($value)){
-                        $this->parseItemsAndSave($row, $field, $value);
+                    if(is_array($value)){
+                        $this->parseArrayItemsAndSave($row, $field, $value);
+                    }elseif(is_object($value)){
+                        $this->parseArrayItemsAndSave($row, $field, [$value]);
                     }else{
                         $this->addValueIfColumnExist($field, $value, $movie);
                     }
@@ -45,8 +48,7 @@ class InsertService
         /*
         Check if model class exist in App namespace
     */
-
-    private function parseItemsAndSave($row, $field, $value){
+    private function parseArrayItemsAndSave($row, $field, $value){
         $this->movie_id = $row->id;
         foreach($value as $items){
             $this->checkIfModelExist($field);
@@ -56,7 +58,6 @@ class InsertService
             $this->model->movie_id = $row->id;
             $this->model->save();
         }
-
     }
 
     private function checkIfModelExist($modelName)
@@ -68,8 +69,11 @@ class InsertService
     }
 
     private function addValueIfColumnExist($columnName, $value, $model)
-    {
+    {   
         if ($model->getConnection()->getSchemaBuilder()->hasColumn($model->getTable(), $columnName)) {
+            if($model->getTable() == 'videos' && $columnName == 'alternatives'){
+                $value = serialize($value);
+            }
             $model->$columnName = $value;
             //check if value is a valid url and a image
             $this->checkForUrlAndImageType($value);
@@ -112,18 +116,4 @@ class InsertService
 
         curl_close($handle);
     }
-    private function getToken($length){
-        $token = "";
-        $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
-        $codeAlphabet.= "0123456789";
-        $max = strlen($codeAlphabet);
-
-       for ($i=0; $i < $length; $i++) {
-           $token .= $codeAlphabet[random_int(0, $max-1)];
-       }
-
-       return $token;
-   }
-
 }

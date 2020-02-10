@@ -14,9 +14,8 @@ class CreateGalleriesTable extends Migration {
 			$table->string('title')->nullable();
 			$table->string('url')->nullable();
 			$table->string('thumbnailUrl')->nullable();
-			$table->string('gallery_id')->nullable();
+			$table->string('image')->nullable();
             $table->string('movie_id');
-
             $table->primary('id');
 		});
 	}

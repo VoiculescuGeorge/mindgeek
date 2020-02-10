@@ -84,6 +84,4 @@ RUN npm i npm@6.0.1 -g
 #install deps
 RUN npm install
 
-RUN php artisan migrate
-
 WORKDIR /var/www

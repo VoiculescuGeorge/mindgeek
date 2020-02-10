@@ -8,10 +8,10 @@ use App\Repositories\MovieRepository;
 class ShowcaseController extends Controller
 {
     public function showMovies(){
-        $test = new MovieRepository();
-        $movies = $test->getMovies();
+        $movie_repository = new MovieRepository();
+        $movies = $movie_repository->getMovies();
 
-        return view('welcome', [
+        return view('showcase', [
             'movies' => $movies
         ]);
     }

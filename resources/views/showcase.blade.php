@@ -50,7 +50,7 @@
 									<div class="w3ls-news-result">
                                         <h4>Search Results : <span>{{ count($movies) }}</span></h4>
                                     </div>
-									<table class="fold">
+									<table class="fold-table">
 										<thead>
 										  <tr>
 											<th>No.</th>
@@ -84,16 +84,16 @@
 															<h4>Body</h4>
 															<p> {{ $movie->body }}</p>
 															<hr>
-														</div>	
+														</div>
 														<div class="col-md-6">
 															<h4>Synopsis</h4>
 															<p> {{ $movie->synopsis }}</p>
 														</div>
-														
+
 														<div class="col-md-6">
 															<h4>Quote</h4>
 															<p>{{ $movie->quote }}</p>
-														</div>		
+														</div>
 														@isset($movie->viewingWindow)
 															<div class="col-md-12 text-left">
 																<hr>
@@ -117,7 +117,7 @@
 																			</div>
 																		</div>
 																	@endisset
-																@endforeach	
+																@endforeach
 															</div>
 														@endisset
 
@@ -133,7 +133,7 @@
 																			</div>
 																		</div>
 																	@endisset
-																@endforeach	
+																@endforeach
 															</div>
 														@endisset
 														@isset($movie->galleries)
@@ -152,7 +152,7 @@
 																			</div>
 																		</div>
 																	@endisset
-																@endforeach	
+																@endforeach
 															</div>
 														@endisset
 
@@ -179,10 +179,10 @@
 																			@endforeach
 																		@endisset
 																	</div>
-																@endforeach	
+																@endforeach
 															</div>
 														@endisset
-														
+
 														<div class="col-md-12">
 															<hr>
 															@isset($movie->headline)
@@ -196,7 +196,7 @@
 															@isset($movie->duration)
 																<div class="col-md-2 text-right">Duration</div>
 																<div class="col-md-10">{{  $movie->duration }} seconds</div>
-															@endisset	
+															@endisset
 															@isset($movie->directors)
 																<div class="col-md-2 text-right">Directors</div>
 																<div class="col-md-10">{{ implode(", ", $movie->getRelationshipData('directors', 'name')) }}</div>
@@ -205,7 +205,7 @@
 																<div class="col-md-2 text-right">Cast</div>
 																<div class="col-md-10">{{ implode(", ", $movie->getRelationshipData('cast', 'name')) }}</div>
 															@endisset
-															
+
 															@isset($movie->class)
 																<div class="col-md-2 text-right">Class</div>
 																<div class="col-md-10">{{ $movie->class }} </div>
@@ -214,19 +214,19 @@
 																<div class="col-md-2 text-right">ReviewAuthor</div>
 																<div class="col-md-10">{{ $movie->reviewAuthor }} </div>
 															@endisset
-															@isset($movie->year)	
+															@isset($movie->year)
 																<div class="col-md-2 text-right">Year</div>
 																<div class="col-md-10">{{ $movie->year }} </div>
 															@endisset
-															@isset($movie->genres)	
+															@isset($movie->genres)
 																<div class="col-md-2 text-right">Genres</div>
 																<div class="col-md-10">{{ implode(" ", $movie->genres) }} </div>
 															@endisset
-															@isset($movie->url)	
+															@isset($movie->url)
 																<div class="col-md-2 text-right">Url</div>
 																<div class="col-md-10"><a target="target="_blank href="{{ $movie->url }}">{{$movie->url}}</a> </div>
 															@endisset
-															@isset($movie->skyGoUrl)	
+															@isset($movie->skyGoUrl)
 																<div class="col-md-2 text-right">skyGoUrl</div>
 															<div class="col-md-10"><a target="target="_blank href="{{ $movie->skyGoUrl }}">Go to url</a> </div>
 															@endisset

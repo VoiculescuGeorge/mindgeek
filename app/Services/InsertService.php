@@ -19,9 +19,9 @@ class InsertService
     {
         $this->movieRepository = $movieRepository;
     }
-    
+
     public function insertJson($json)
-    {   
+    {
         $counter = 0;
         foreach($json as $row){
             $movie = $this->movieRepository->setInstance();
@@ -69,9 +69,9 @@ class InsertService
     }
 
     private function addValueIfColumnExist($columnName, $value, $model)
-    {   
+    {
         if ($model->getConnection()->getSchemaBuilder()->hasColumn($model->getTable(), $columnName)) {
-            if($model->getTable() == 'videos' && $columnName == 'alternatives'){
+            if(is_array($value)){
                 $value = serialize($value);
             }
             $model->$columnName = $value;
